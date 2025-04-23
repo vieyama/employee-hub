@@ -1,0 +1,70 @@
+<app-card [hover]="true">
+  <app-card-body>
+    <div class="flex items-start justify-between">
+      <div class="flex items-center">
+        <img [src]="employee.profileImage || 'https://via.placeholder.com/150'"
+          alt="{{ employee.firstName }} {{ employee.lastName }}" class="w-12 rounded-full">
+
+        <div class="ml-4">
+          <a [routerLink]="['/employees', employee.id]">
+            <h3 class="text-lg font-medium text-gray-900 hover:text-primary-600 transition-colors">
+              {{employee.firstName}} {{employee.lastName}}
+            </h3>
+          </a>
+          <p class="text-sm text-gray-500">{{employee.position}}</p>
+          <app-badge [text]="getFormattedStatus(employee.status)"
+            [variant]="statusVariant(employee.status || '')"></app-badge>
+        </div>
+      </div>
+      <div class="relative inline-block text-left" (clickOutside)="closeDropdown()">
+        <app-button (click)="toggleDropdown(employee.id)" class="focus:ring-none" variant="ghost">
+          <lucide-icon [img]="MoreVerticalIcon" class="h-5 w-5 text-gray-400"></lucide-icon>
+        </app-button>
+
+        @if(isOpenById === employee.id){
+        <div
+          class="absolute right-0 z-10 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-gray-400 ring-opacity-5 focus:outline-none">
+          <div class="py-1">
+            <a [routerLink]="['/employees', employee.id]"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">View</a>
+            <a [routerLink]="['/employees', employee.id, 'edit']"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+          </div>
+          <div class="py-1">
+            <app-button (click)="openDeleteModal(employee)" class="text-sm text-gray-700" variant="ghost">
+              Delete
+            </app-button>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-4 space-y-2">
+      <div class="flex items-center text-sm text-gray-600">
+        <lucide-icon [img]="MailIcon" class="h-4 w-4 mr-2 text-gray-400"></lucide-icon>
+        <span class="truncate">{{employee.email}} | {{employee.username}}</span>
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <lucide-icon [img]="CircleDollar" class="h-4 w-4 mr-2 text-gray-400"></lucide-icon>
+        <span>${{ employee.basicSalary.toLocaleString() }}</span>
+      </div>
+      <div class="flex flex-col items-start gap-1.5 text-sm text-gray-600">
+        <span class="line-clamp-2 text-gray-700 transition-all">{{ employee.description }}</span>
+
+      </div>
+    </div>
+  </app-card-body>
+  <app-card-footer>
+    <div class="flex justify-between text-sm">
+      <div>
+        <span class="text-gray-500">Group</span>
+        <p class="font-medium text-gray-900">{{employee.group}}</p>
+      </div>
+      <div>
+        <span class="text-gray-500">Birth Date</span>
+        <p class="font-medium text-gray-900">{{ employee.birthDate | date: 'MM/dd/yyyy' }}</p>
+      </div>
+    </div>
+  </app-card-footer>
+</app-card>

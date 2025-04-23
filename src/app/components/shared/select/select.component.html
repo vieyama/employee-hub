@@ -1,0 +1,5 @@
+<select
+  class="appearance-none bg-white border border-gray-300 rounded-md pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-primary-500 w-full focus:border-primary-500"
+  [ngModel]="model" (ngModelChange)="onModelChange($event)">
+  <option *ngFor="let opt of options" [value]="opt.value">{{ opt.label }}</option>
+</select>

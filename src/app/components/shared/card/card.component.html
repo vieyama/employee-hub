@@ -1,0 +1,8 @@
+<div [ngClass]="[
+    'bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden',
+    hover ? 'transition-all duration-200 hover:shadow-md hover:scale-[1.01]' : '',
+    onClick ? 'cursor-pointer' : '',
+    class
+  ]" (click)="handleClick()">
+  <ng-content></ng-content>
+</div>
