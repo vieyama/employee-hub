@@ -4,22 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
 import { HeaderComponent } from '../shared/header/header.component';
 import { Employee } from '../../models/employee.model';
-import { LucideAngularModule, UserRoundPlus } from 'lucide-angular';
-import { ButtonComponent } from "../shared/button/button.component";
+import { LucideAngularModule } from 'lucide-angular';
 import { EmployeeDeleteComponent } from '../employee-delete/employee-delete.component';
 import { SelectComponent } from "../shared/select/select.component";
-import { BadgeComponent } from "../shared/badge/badge.component";
 import { CardComponent } from "../shared/card/card.component";
 import { EmployeeCardComponent } from "./employee-card/employee-card.component";
+import { EmployeeFilterComponent } from "./employee-filter/employee-filter.component";
+import { EmployeePaginationComponent } from "./employee-pagination/employee-pagination.component";
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent, LucideAngularModule, ButtonComponent, EmployeeDeleteComponent, SelectComponent, BadgeComponent, CardComponent, EmployeeCardComponent],
+  imports: [CommonModule, FormsModule, HeaderComponent, LucideAngularModule, EmployeeDeleteComponent, SelectComponent, CardComponent, EmployeeCardComponent, EmployeeFilterComponent, EmployeePaginationComponent],
   templateUrl: './employee-list.component.html',
 })
 export class EmployeeListComponent {
-  readonly UserRoundPlus = UserRoundPlus
   protected employeeService = inject(EmployeeService);
 
   employees: Employee[] = [];
@@ -31,8 +30,6 @@ export class EmployeeListComponent {
   sortBy = 'name';
   sortOrder: 'asc' | 'desc' = 'asc';
   employeeToDelete: Employee | null = null;
-
-  // Pagination
   currentPage = 1;
   itemsPerPage = 5;
   totalPages = 1;
@@ -65,6 +62,20 @@ export class EmployeeListComponent {
     this.applyFilters()
   }
 
+  onSearchChange(value: string) {
+    this.searchTerm = value;
+    this.applyFilters();
+  }
+
+  onGroupChange(value: string) {
+    this.groupFilter = value;
+    this.applyFilters();
+  }
+
+  onStatusChange(value: string) {
+    this.statusFilter = value;
+    this.applyFilters();
+  }
 
   applyFilters(): void {
     this.filteredEmployees = this.employees.filter(employee => {
@@ -143,21 +154,6 @@ export class EmployeeListComponent {
     this.employeeToDelete = null;
   }
 
-
-
-  get getGroupOptions() {
-    return [{ value: '', label: 'All Groups' }, ...this.employeeService.groups.map(item => ({ value: item.name, label: item.name }))]
-  }
-
-  get getStatusFilter() {
-    return [
-      { value: '', label: 'All Statuses' },
-      { value: 'active', label: 'Active' },
-      { value: 'inactive', label: 'Inactive' },
-      { value: 'on-leave', label: 'On Leave' }
-    ]
-  }
-
   get getSortingItems() {
     return [
       { value: 'name', label: 'Name' },
@@ -167,13 +163,5 @@ export class EmployeeListComponent {
     ]
   }
 
-  get getPaginationPageSize() {
-    return [
-      { value: 5, label: '5 per page' },
-      { value: 15, label: '15 per page' },
-      { value: 25, label: '25 per page' },
-      { value: 50, label: '55 per page' },
-      { value: 100, label: '100 per page' },
-    ]
-  }
+
 }

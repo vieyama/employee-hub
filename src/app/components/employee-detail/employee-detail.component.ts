@@ -13,7 +13,6 @@ import { EmployeeDeleteComponent } from '../employee-delete/employee-delete.comp
   standalone: true,
   imports: [CommonModule, RouterLink, HeaderComponent, LucideAngularModule, EmployeeDeleteComponent],
   templateUrl: './employee-detail.component.html',
-  styleUrl: './employee-detail.component.css'
 })
 
 

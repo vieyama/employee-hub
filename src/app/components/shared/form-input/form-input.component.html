@@ -1,0 +1,37 @@
+<div class="w-full mt-3">
+  <label class="block text-sm font-medium text-gray-700 mb-1">
+    {{ label }}
+  </label>
+
+  <!-- Standard input -->
+  <ng-container *ngIf="!isTextarea && type !== 'select'; else textareaOrSelect">
+    <input
+      class="w-full rounded border border-gray-300 bg-white text-gray-900 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+      [type]="type" [value]="value" [placeholder]="placeholder" [disabled]="isDisabled" (input)="handleInput($event)"
+      (blur)="onTouched()" />
+  </ng-container>
+
+  <!-- Textarea or Select -->
+  <ng-template #textareaOrSelect>
+    <!-- Textarea -->
+    <textarea *ngIf="isTextarea"
+      class="w-full resize-none rounded border border-gray-300 bg-white text-gray-900 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+      [rows]="rows" [value]="value" [placeholder]="placeholder" [disabled]="isDisabled" (input)="handleInput($event)"
+      (blur)="onTouched()"></textarea>
+
+    <!-- Select -->
+    <select *ngIf="type === 'select'"
+      class="appearance-none bg-white w-full border border-gray-300 rounded-md pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      [value]="value" [disabled]="isDisabled" (change)="handleInput($event)" (blur)="onTouched()">
+      <option value="">{{ placeholder || 'Select an option' }}</option>
+      <option *ngFor="let item of options" [value]="item[optionValue]">
+        {{ item[optionLabel] }}
+      </option>
+    </select>
+  </ng-template>
+
+  <!-- Error -->
+  <div class="text-sm text-red-600 mt-1" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -6,11 +6,13 @@ import { EmployeeService } from '../../services/employee.service';
 import { HeaderComponent } from '../shared/header/header.component';
 import { Employee, Group, Position } from '../../models/employee.model';
 import { LucideAngularModule, MoveLeft } from 'lucide-angular';
+import { FormInputComponent } from '../shared/form-input/form-input.component';
+import { ButtonComponent } from "../shared/button/button.component";
 
 @Component({
   selector: 'app-employee-form',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, HeaderComponent, LucideAngularModule],
+  imports: [CommonModule, FormInputComponent, RouterLink, ReactiveFormsModule, HeaderComponent, LucideAngularModule, ButtonComponent],
   templateUrl: './employee-form.component.html'
 })
 export class EmployeeFormComponent implements OnInit {
@@ -28,6 +30,11 @@ export class EmployeeFormComponent implements OnInit {
 
   groups: Group[] = [];
   availablePositions: Position[] = [];
+  status = [
+    { value: "active", label: "Active" },
+    { value: "inactive", label: "Inactive" },
+    { value: "on-leave", label: "On Leave" }
+  ]
 
   ngOnInit(): void {
     this.initForm();

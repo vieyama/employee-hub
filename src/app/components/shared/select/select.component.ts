@@ -18,6 +18,6 @@ export class SelectComponent {
   onModelChange(value: string) {
     this.model = value;
     this.modelChange.emit(this.model);
-    this.change.emit(value);
+    this.change.emit();
   }
 }

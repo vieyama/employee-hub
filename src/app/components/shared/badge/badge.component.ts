@@ -9,7 +9,6 @@ export type BadgeVariant = 'success' | 'warning' | 'error' | 'default';
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './badge.component.html',
-  styleUrl: './badge.component.css'
 })
 export class BadgeComponent {
   @Input() variant: BadgeVariant = 'default';

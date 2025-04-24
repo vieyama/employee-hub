@@ -9,8 +9,7 @@ type ButtonSize = 'sm' | 'md' | 'lg';
   selector: 'app-button',
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
-  templateUrl: './button.component.html',
-  styleUrl: './button.component.css'
+  templateUrl: './button.component.html'
 })
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'default';
@@ -21,6 +20,7 @@ export class ButtonComponent {
   @Input() fullWidth = false;
   @Input() disabled = false;
   @Input() class = '';
+  @Input() type = 'button'
 
   get classes(): string[] {
     const variantStyles: Record<ButtonVariant, string> = {
