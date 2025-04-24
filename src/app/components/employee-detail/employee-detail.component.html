@@ -1,41 +1,29 @@
 <app-header></app-header>
 
 <div class="bg-gray-50">
-  <div class="bg-white shadow-sm border-b border-gray-200 sticky top-[65px] z-50">
-    <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-lg font-semibold text-gray-900">Employee Details</h1>
-    </div>
-  </div>
+  <app-employee-header header="Employee Details"></app-employee-header>
+
   <div class="p-8">
     @if (employee) {
     <div class="flex items-center justify-between mb-5">
-      <button class="inline-flex space-x-2 items-center cursor-pointer text-gray-700" routerLink="/employees">
-        <lucide-icon [img]="BackIcon" class="h-5 w-5"></lucide-icon>
-        <span>Back to List</span>
-      </button>
+      <app-employee-back-button text="Back to List"></app-employee-back-button>
 
       <div class="flex gap-2 items-center">
-        <button
-          class="rounded cursor-pointer border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-900 shadow-sm transition-colors hover:bg-gray-100"
-          [routerLink]="['/employees', employee.id, 'edit']">Edit</button>
-        <button
-          class="rounded cursor-pointer border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-900 shadow-sm transition-colors hover:bg-gray-100"
-          (click)="openDeleteModal()">Delete</button>
+        <app-button [routerLink]="['/employees', employee.id, 'edit']" variant="primary">Edit</app-button>
+        <app-button variant="primary" (click)="openDeleteModal()">Delete</app-button>
 
       </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div class="lg:col-span-2 bg-white p-3 rounded-lg shadow-sm border border-gray-100
-        overflow-hidden">
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+      <app-card [hover]="false" class="lg:col-span-2">
+        <app-card-header class="flex justify-between items-center w-full">
           <h2 class="text-xl font-semibold text-gray-900">Profile Information</h2>
-          <span [class]="'rounded-full px-2.5 py-0.5 text-sm whitespace-nowrap' + ' ' + statusVariant(employee.status)">
-            {{employee.status.charAt(0).toUpperCase() + employee.status.slice(1).replace('-', ' ')}}
-          </span>
-        </div>
-        <div class="flex flex-col sm:flex-row sm:items-center gap-6">
-          <div>
+          <app-badge [text]="employee.status.charAt(0).toUpperCase() + employee.status.slice(1).replace('-', ' ')"
+            [variant]="statusVariant(employee.status || '')"></app-badge>
+        </app-card-header>
+        <app-card-body>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-6">
             @if(employee.profileImage){
             <img [src]="employee.profileImage" class="w-32 h-32 object-cover rounded-full" />
             } @else {
@@ -45,38 +33,37 @@
               {{employee.lastName.charAt(0)}}
             </div>
             }
-          </div>
 
-          <div class="flex-1 my-5">
-            <h1 class="text-2xl font-bold text-gray-900">
-              {{employee.firstName}} {{employee.lastName}}
-            </h1>
-            <p class="text-lg text-gray-600">{{employee.position}}</p>
+            <div class="flex-1 my-5">
+              <h1 class="text-2xl font-bold text-gray-900">
+                {{employee.firstName}} {{employee.lastName}}
+              </h1>
+              <p class="text-lg text-gray-600">{{employee.position}}</p>
 
-            <div class="mt-4 flex flex-col gap-2">
-              <div class="flex items-center text-gray-600 gap-2">
-                <lucide-icon [img]="MailIcon" class="h-5 w-5"></lucide-icon>
-                <span>{{employee.email}}</span>
-              </div>
-              <div class="flex items-center text-gray-600 gap-2">
-                <lucide-icon [img]="BuildingIcon" class="h-5 w-5"></lucide-icon>
-                <span>{{employee.group}}</span>
-              </div>
-              <div class="flex items-center text-gray-600 gap-2">
-                <lucide-icon [img]="CalendarIcon" class="h-5 w-5"></lucide-icon>
-                <span>Birth Date {{ employee.birthDate | date: 'MM/dd/yyyy' }}</span>
+              <div class="mt-4 flex flex-col gap-2">
+                <div class="flex items-center text-gray-600 gap-2">
+                  <lucide-icon [img]="MailIcon" class="h-5 w-5"></lucide-icon>
+                  <span>{{employee.email}}</span>
+                </div>
+                <div class="flex items-center text-gray-600 gap-2">
+                  <lucide-icon [img]="BuildingIcon" class="h-5 w-5"></lucide-icon>
+                  <span>{{employee.group}}</span>
+                </div>
+                <div class="flex items-center text-gray-600 gap-2">
+                  <lucide-icon [img]="CalendarIcon" class="h-5 w-5"></lucide-icon>
+                  <span>Birth Date {{ employee.birthDate | date: 'MM/dd/yyyy' }}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </app-card-body>
+      </app-card>
 
-      <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100
-        overflow-hidden">
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+      <app-card [hover]="false" class="h-full">
+        <app-card-header>
           <h2 class="text-xl font-semibold text-gray-900">Compensation</h2>
-        </div>
-        <div class="p-5">
+        </app-card-header>
+        <app-card-body>
           <div class="bg-gray-50 p-4 rounded-lg">
             <div class="flex items-center">
               <lucide-icon [img]="DollarSignIcon"
@@ -92,50 +79,54 @@
             <p class="text-sm font-medium text-gray-500 mb-2">Monthly</p>
             <p class="text-xl font-semibold text-gray-900">${{(employee.basicSalary / 12).toLocaleString()}}</p>
           </div>
-        </div>
-      </div>
+        </app-card-body>
+      </app-card>
     </div>
-    <div class="bg-white p-3 mt-6 rounded-lg shadow-sm border border-gray-100
-        overflow-hidden">
-      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-        <h2 class="text-xl font-semibold text-gray-900">Employment Details</h2>
-      </div>
 
-      <ul class="divide-y divide-gray-100 p-5">
-        <li class="py-3 flex justify-between">
-          <span class="text-sm font-medium text-gray-500">Employee ID</span>
-          <span class="text-sm text-gray-900">{{employee.id}}</span>
-        </li>
-        <li class="py-3 flex justify-between">
-          <span class="text-sm font-medium text-gray-500">Group</span>
-          <span class="text-sm text-gray-900">{{employee.group}}</span>
-        </li>
-        <li class="py-3 flex justify-between">
-          <span class="text-sm font-medium text-gray-500">Position</span>
-          <span class="text-sm text-gray-900">{{employee.position}}</span>
-        </li>
-        <li class="py-3 flex justify-between">
-          <span class="text-sm font-medium text-gray-500">Birth Date</span>
-          <span class="text-sm text-gray-900">{{ employee.birthDate | date: 'MM/dd/yyyy' }}</span>
-        </li>
-        <li class="py-3 flex justify-between">
-          <span class="text-sm font-medium text-gray-500">Status</span>
-          <span [class]="'rounded-full px-2.5 py-0.5 text-sm whitespace-nowrap' + ' ' + statusVariant(employee.status)">
-            {{employee.status.charAt(0).toUpperCase() + employee.status.slice(1).replace('-', ' ')}}
-          </span>
-        </li>
-        <li class="py-3 flex flex-col gap-2">
-          <span class="text-sm font-medium text-gray-500">Description</span>
-          <span class="text-sm text-gray-900">{{employee.description}}</span>
-        </li>
-      </ul>
-    </div>
+    <app-card [hover]="false">
+      <app-card-header>
+        <h2 class="text-xl font-semibold text-gray-900">Employment Details</h2>
+      </app-card-header>
+      <app-card-body>
+        <ul class="divide-y divide-gray-100 p-5">
+          <li class="py-3 flex justify-between">
+            <span class="text-sm font-medium text-gray-500">Employee ID</span>
+            <span class="text-sm text-gray-900">{{employee.id}}</span>
+          </li>
+          <li class="py-3 flex justify-between">
+            <span class="text-sm font-medium text-gray-500">Group</span>
+            <span class="text-sm text-gray-900">{{employee.group}}</span>
+          </li>
+          <li class="py-3 flex justify-between">
+            <span class="text-sm font-medium text-gray-500">Position</span>
+            <span class="text-sm text-gray-900">{{employee.position}}</span>
+          </li>
+          <li class="py-3 flex justify-between">
+            <span class="text-sm font-medium text-gray-500">Birth Date</span>
+            <span class="text-sm text-gray-900">{{ employee.birthDate | date: 'MM/dd/yyyy' }}</span>
+          </li>
+          <li class="py-3 flex justify-between">
+            <span class="text-sm font-medium text-gray-500">Status</span>
+            <span
+              [class]="'rounded-full px-2.5 py-0.5 text-sm whitespace-nowrap' + ' ' + statusVariant(employee.status)">
+              {{employee.status.charAt(0).toUpperCase() + employee.status.slice(1).replace('-', ' ')}}
+            </span>
+          </li>
+          <li class="py-3 flex flex-col gap-2">
+            <span class="text-sm font-medium text-gray-500">Description</span>
+            <span class="text-sm text-gray-900">{{employee.description}}</span>
+          </li>
+        </ul>
+      </app-card-body>
+    </app-card>
     } @else {
-    <div class="not-found">
-      <h2>Employee Not Found</h2>
-      <p>The employee you are looking for does not exist or has been removed.</p>
-      <button class="btn-primary" routerLink="/employees">Back to Employee List</button>
-    </div>
+    <app-card [hover]="false" class="p-6">
+      <app-card-body class="text-center flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Employee Not Found</h2>
+        <p>The employee you are looking for does not exist or has been removed.</p>
+        <app-button variant="primary" routerLink="/employees">Back to Employee List</app-button>
+      </app-card-body>
+    </app-card>
     }
   </div>
 </div>

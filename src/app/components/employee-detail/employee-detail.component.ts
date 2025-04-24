@@ -4,20 +4,26 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Employee } from '../../models/employee.model';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/header/header.component';
-import { BuildingIcon, Calendar1Icon, DollarSignIcon, LucideAngularModule, MailIcon, MoveLeft } from 'lucide-angular';
+import { BuildingIcon, Calendar1Icon, DollarSignIcon, LucideAngularModule, MailIcon } from 'lucide-angular';
 import { statusVariant } from '../../utils/get-status';
 import { EmployeeDeleteComponent } from '../employee-delete/employee-delete.component';
+import { ButtonComponent } from "../shared/button/button.component";
+import { EmployeeHeaderComponent } from "../employee-header/employee-header.component";
+import { EmployeeBackButtonComponent } from "../employee-back-button/employee-back-button.component";
+import { CardComponent } from "../shared/card/card.component";
+import { CardHeaderComponent } from "../shared/card/header/header.component";
+import { CardBodyComponent } from "../shared/card/body/body.component";
+import { BadgeComponent } from "../shared/badge/badge.component";
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, HeaderComponent, LucideAngularModule, EmployeeDeleteComponent],
+  imports: [CommonModule, RouterLink, HeaderComponent, LucideAngularModule, EmployeeDeleteComponent, ButtonComponent, EmployeeHeaderComponent, EmployeeBackButtonComponent, CardComponent, CardHeaderComponent, CardBodyComponent, BadgeComponent],
   templateUrl: './employee-detail.component.html',
 })
 
 
 export class EmployeeDetailComponent implements OnInit {
-  readonly BackIcon = MoveLeft
   readonly MailIcon = MailIcon
   readonly BuildingIcon = BuildingIcon
   readonly CalendarIcon = Calendar1Icon
@@ -35,12 +41,7 @@ export class EmployeeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = +params['id'];
-      this.employee = this.employeeService.getEmployeeById(id);
-
-      // If employee not found, could redirect back to list
-      if (!this.employee) {
-        // No need to redirect, we'll show a not found message
-      }
+      // this.employee = this.employeeService.getEmployeeById(id);
     });
   }
 

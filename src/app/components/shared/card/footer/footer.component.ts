@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './footer.component.html'
 })
-export class FooterComponent {
+export class CardFooterComponent {
   @Input() class: string = '';
 }

@@ -11,11 +11,12 @@ import { CardComponent } from "../shared/card/card.component";
 import { EmployeeCardComponent } from "./employee-card/employee-card.component";
 import { EmployeeFilterComponent } from "./employee-filter/employee-filter.component";
 import { EmployeePaginationComponent } from "./employee-pagination/employee-pagination.component";
+import { EmployeeHeaderComponent } from "../employee-header/employee-header.component";
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent, LucideAngularModule, EmployeeDeleteComponent, SelectComponent, CardComponent, EmployeeCardComponent, EmployeeFilterComponent, EmployeePaginationComponent],
+  imports: [CommonModule, FormsModule, HeaderComponent, LucideAngularModule, EmployeeDeleteComponent, SelectComponent, CardComponent, EmployeeCardComponent, EmployeeFilterComponent, EmployeePaginationComponent, EmployeeHeaderComponent],
   templateUrl: './employee-list.component.html',
 })
 export class EmployeeListComponent {

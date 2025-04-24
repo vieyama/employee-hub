@@ -1,16 +1,10 @@
 <app-header></app-header>
 
 <div class="bg-gray-50">
-  <div class="bg-white shadow-sm border-b border-gray-200 sticky top-[65px] z-50">
-    <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-lg font-semibold text-gray-900">{{ isEditMode ? 'Edit Employee' : 'Add New Employee' }}</h1>
-    </div>
-  </div>
+  <app-employee-header [header]="isEditMode ? 'Edit Employee' : 'Add New Employee'"></app-employee-header>
+
   <div class="p-8">
-    <button class="inline-flex space-x-2 items-center cursor-pointer text-gray-700" routerLink="/employees">
-      <lucide-icon [img]="BackIcon" class="h-5 w-5"></lucide-icon>
-      <span>Back to List</span>
-    </button>
+    <app-employee-back-button text="Back to List"></app-employee-back-button>
 
     <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100
         overflow-hidden">

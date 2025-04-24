@@ -5,19 +5,18 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { EmployeeService } from '../../services/employee.service';
 import { HeaderComponent } from '../shared/header/header.component';
 import { Employee, Group, Position } from '../../models/employee.model';
-import { LucideAngularModule, MoveLeft } from 'lucide-angular';
 import { FormInputComponent } from '../shared/form-input/form-input.component';
 import { ButtonComponent } from "../shared/button/button.component";
+import { EmployeeHeaderComponent } from "../employee-header/employee-header.component";
+import { EmployeeBackButtonComponent } from "../employee-back-button/employee-back-button.component";
 
 @Component({
   selector: 'app-employee-form',
   standalone: true,
-  imports: [CommonModule, FormInputComponent, RouterLink, ReactiveFormsModule, HeaderComponent, LucideAngularModule, ButtonComponent],
+  imports: [CommonModule, FormInputComponent, RouterLink, ReactiveFormsModule, HeaderComponent, ButtonComponent, EmployeeHeaderComponent, EmployeeBackButtonComponent],
   templateUrl: './employee-form.component.html'
 })
 export class EmployeeFormComponent implements OnInit {
-  readonly BackIcon = MoveLeft
-
   private fb = inject(FormBuilder);
   private employeeService = inject(EmployeeService);
   private router = inject(Router);

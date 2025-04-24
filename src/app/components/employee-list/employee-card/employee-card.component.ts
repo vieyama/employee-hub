@@ -1,9 +1,9 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { CardComponent } from "../../shared/card/card.component";
-import { BodyComponent } from "../../shared/card/body/body.component";
+import { CardBodyComponent } from "../../shared/card/body/body.component";
 import { BadgeComponent } from "../../shared/badge/badge.component";
 import { ButtonComponent } from "../../shared/button/button.component";
-import { FooterComponent } from "../../shared/card/footer/footer.component";
+import { CardFooterComponent } from "../../shared/card/footer/footer.component";
 import { Employee } from '../../../models/employee.model';
 import { RouterLink } from '@angular/router';
 import { CircleDollarSign, LucideAngularModule, MailIcon, MoreVerticalIcon } from 'lucide-angular';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-employee-card',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, RouterLink, CardComponent, BodyComponent, BadgeComponent, ButtonComponent, FooterComponent],
+  imports: [CommonModule, LucideAngularModule, RouterLink, CardComponent, CardBodyComponent, BadgeComponent, ButtonComponent, CardFooterComponent],
   templateUrl: './employee-card.component.html',
 })
 export class EmployeeCardComponent {

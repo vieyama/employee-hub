@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './header.component.html',
 })
-export class HeaderComponent {
+export class CardHeaderComponent {
   @Input() class: string = '';
 }
