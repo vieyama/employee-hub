@@ -41,7 +41,7 @@ export class EmployeeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = +params['id'];
-      // this.employee = this.employeeService.getEmployeeById(id);
+      this.employee = this.employeeService.getEmployeeById(id);
     });
   }
 
